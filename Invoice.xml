@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MoneyData>
+    <SeznamFaktVyd>
+        <FaktVyd>info@cubelogy.com
+            <MojeFirma>
+                <Nazev>Cubelogy technologies s.r.o</Nazev>
+                <title>
+                    <Ulice>Jiráskova 297/14</Ulice>
+                    <Misto>Olomouc</Misto>
+                    <PSC>77900</PSC>
+                    <Stat>Česká republika</Stat>
+                    <KodStatu>CZ</KodStatu>
+                </title>
+                <ObchNazev>Cubelogy technologies s.r.o</ObchNazev>
+                <title>
+                    <Ulice>Jiráskova 297/14</Ulice>
+                    <Misto>Olomouc</Misto>
+                    <PSC>77900</PSC>
+                    <Stat>Česká republika</Stat>
+                    <KodStatu>CZ</KodStatu>
+                </title>
+                <title>
+                    <Pred/>
+                    <Cislo/>
+                    <Klap/>
+                </title>
+                <title>
+                    <Pred/>
+                    <Cislo/>
+                    <Klap/>
+                </title>
+                <title>
+                    <Pred/>
+                    <Cislo>775968138</Cislo>
+                </title>
+                <EMail>info@cubelogy.com</EMail>
+                <WWW/>
+                <ICO>09243020</ICO>
+                <DICO>CZ09243020</DICO>
+                <Banka>Fio banka, a.s.</Banka>
+                <Ucet>2601823044</Ucet>
+                <KodBanky>2010</KodBanky>
+                <KodPartn/>
+                <FyzOsoba>0</FyzOsoba>
+                <SpisovaZnacka>C 82523 Krajským soudem v Ostravě</SpisovaZnacka>
+                <MenaSymb>Kč</MenaSymb>
+                <MenaKod>CZK</MenaKod>
+            </MojeFirma>
+        </FaktVyd>
+    </SeznamFaktVyd>
+</MoneyData>
