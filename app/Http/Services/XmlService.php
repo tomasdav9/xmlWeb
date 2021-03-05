@@ -4,6 +4,7 @@
 namespace App\Http\Services;
 
 
+use Carbon\Carbon;
 use Spatie\ArrayToXml\ArrayToXml;
 
 class XmlService
@@ -12,12 +13,14 @@ class XmlService
     private $odberatel;
     private $konecPrij;
     private $info;
+    private $valuty;
+    private $uhrady;
 
     /** Navolení odberatele, dalsiho infa.
      * @param array $odberatel
      * @param array $info
      */
-    public function __construct($odberatel, $info)
+    public function __construct($odberatel, $info, $valuty = null, $uhrady = null)
     {
         $adresy = ["ObchAdresa" => "ObchNazev", "FaktAdresa" => "FaktNazev", "Adresa" => "Nazev"];
 
@@ -27,7 +30,6 @@ class XmlService
             $odberatel["$a"] = $odberatel["Adresa"];
 
         }
-        dd($odberatel);
         $this->mojeFirma = config("invoices");
         $this->odberatel = [
             "DodOdb" => $odberatel];
@@ -41,6 +43,12 @@ class XmlService
             ],
         ];
         $this->info = $info;
+        if ($valuty != null) {
+            $this->valuty = $valuty;
+        }
+        if($uhrady != null){
+            $this->uhrady = $uhrady;
+        }
 
 
     }
@@ -48,71 +56,16 @@ class XmlService
     public function generateXML($params)
     {
         $result = ArrayToXml::convert($params, "MoneyData", false, "UTF-8", "1.0");
-        $f = fopen("inv.xml", "w");
+        $f = fopen("Faktura " . Carbon::now()->isoFormat('LL') . ".xml", "w");
         fwrite($f, $result);
         fclose($f);
-        return $result;
-//        $xml = new DOMDocument("1.0", "UTF-8");
-//        $xml->formatOutput = true;
-//
-//        //HEADER
-//        $header = $xml->createElement("MoneyData");
-//        $xml->appendChild($header);
-//        //SEZNAM
-//        $seznam = $xml->createElement("SeznamFaktVyd");
-//        $header->appendChild($seznam);
-//        //Vydaná faktura
-//        $faktura = $xml->createElement("FaktVyd", config("invoices.MojeFirma.EMail"));
-//        $seznam->appendChild($faktura);
-//
-//        foreach ($params as $key => $param) {
-//            if (is_countable($param) && count($param) < 2) {
-//                $polozka = $xml->createElement($key, $param);
-//                $faktura->appendChild($polozka);
-//            } else {
-//                foreach ($param as $key => $par) {
-//
-//                }
-//            }
-//        }
-//
-//        //MOJEFIRMA
-//        $mojefirma = $xml->createElement("MojeFirma");
-//        $faktura->appendChild($mojefirma);
-//        foreach (config("invoices.MojeFirma") as $key => $firma) {
-//            if (!is_countable($firma)) {
-//                $polozka = $xml->createElement($key, $firma);
-//                $mojefirma->appendChild($polozka);
-//            } else {
-//
-//                $title = $xml->createElement("title");
-//                $mojefirma->appendChild($title);
-//                foreach ($firma as $klic => $fio) {
-//                    $polozka = $xml->createElement($klic, $fio);
-//                    $title->appendChild($polozka);
-//                }
-//            }
-//        }
-//        $xml->save("Invoice.xml");
-//        return "" . $xml->saveXML() . "";
+        //return $result;
 
 
     }
 
     public function generateInvoiceCZ()
     {
-//        $odberatelstvi = [
-//            "ObchNazev",
-//            "ObchAdresa",
-//            "FaktNazev",
-//            "FaktAdresa"
-//
-//        ];
-//        foreach ($odberatelstvi as $o){
-//            $o = [
-//
-//            ];
-//        }
 
 
         $params = [
@@ -120,6 +73,7 @@ class XmlService
                 "FaktVyd" => [
                     array_merge(
                         $this->info,
+
                         $this->odberatel,
                         $this->konecPrij,
                         $this->mojeFirma),
@@ -130,18 +84,47 @@ class XmlService
         ];
 
 
-        return $this->generateXML($params);
+        $this->generateXML($params);
 
 
     }
 
     public function generateInvoiceEU()
     {
-        //
+        $params = [
+            "SeznamFaktVyd" => [
+                "FaktVyd" => [
+                    array_merge(
+                        $this->info,
+                        $this->valuty,
+                        $this->odberatel,
+                        $this->konecPrij,
+                        $this->mojeFirma),
+
+                ],
+            ],
+            "SeznamFaktVyd_DPP" => "",
+        ];
+        $this->generateXML($params);
     }
 
     public function generateInvoiceWO()
     {
-        //
+        $params = [
+            "SeznamFaktVyd" => [
+                "FaktVyd" => [
+                    array_merge(
+                        $this->info,
+                        $this->valuty,
+                        $this->odberatel,
+                        $this->konecPrij,
+                        $this->uhrady,
+                        $this->mojeFirma),
+
+                ],
+            ],
+            "SeznamFaktVyd_DPP" => "",
+        ];
+        $this->generateXML($params);
     }
 }

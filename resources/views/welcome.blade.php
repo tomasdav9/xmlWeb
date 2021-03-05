@@ -66,6 +66,67 @@
         'Sleva' => '0',
         'SeznamPolozek' => '',
 
+    ], [
+        'Valuty' => [
+            'Mena' => [
+                'Kod' => 'EUR',
+                'Mnozstvi' => '1',
+                'Kurs' => '25.805',
+            ],
+            'SouhrnDPH' => [
+                'Zaklad0' => '0',
+                'Zaklad5' => '0',
+                'Zaklad22' => '5.75',
+                'DPH5' => '0',
+                'DPH22' => '1.21',
+                'SeznamDalsiSazby' => [
+                    'DalsiSazba' => [
+                        'Popis' => 'druhá snížená',
+                        'HladinaDPH' => '1',
+                        'Sazba' => '10',
+                        'Zaklad' => '0',
+                        'DPH' => '0',
+                    ],
+                ],
+            ],
+            'Celkem' => '6.96',
+        ],
+    ], [
+        'SeznamUhrad' => [
+            'Uhrada' => [
+                'DokladUhr' => [
+                    'IDDokladu' => '118',
+                    'CisloDokladu' => '3PB210063',
+                    'DruhDokladu' => 'B',
+                    'Rok' => '2021',
+                ],
+                'Prijem' => '1',
+                'Datum' => '2021-01-30',
+                'DatUplDPH' => '2021-01-30',
+                'Castka' => '5450.98',
+                'ValutyHraz' => [
+                    'Mena' => [
+                        'Kod' => 'EUR',
+                        'Mnozstvi' => '1',
+                        'Kurs' => '26.115',
+                    ],
+                    'Castka' => '208.73',
+                ],
+                'ValutyUhr' => [
+                    'Mena' => [
+                        'Kod' => 'EUR',
+                        'Mnozstvi' => '1',
+                        'Kurs' => '26.115',
+                    ],
+                    'Castka' => '208.73',
+                ],
+                'KurzRozd' => [
+                    'Preceneni' => '0',
+                ],
+                'ZpusobUhr' => '0',
+            ],
+        ],
     ]);
-    dump($x->generateInvoiceCZ());
+
+    $x->generateInvoiceWO();
 
