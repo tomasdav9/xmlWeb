@@ -127,4 +127,44 @@ class XmlService
         ];
         $this->generateXML($params);
     }
+
+    public function generateInvoiceRCH()
+    {
+        $params = [
+            "SeznamFaktVyd" => [
+                "FaktVyd" => [
+                    array_merge(
+                        $this->info,
+                        $this->valuty,
+                        $this->odberatel,
+                        $this->konecPrij,
+                        $this->uhrady,
+                        $this->mojeFirma),
+
+                ],
+            ],
+            "SeznamFaktVyd_DPP" => "",
+        ];
+        $this->generateXML($params);
+    }
+
+    public function generateInvoiceWOIC()
+    {
+        $params = [
+            "SeznamFaktVyd" => [
+                "FaktVyd" => [
+                    array_merge(
+                        $this->info,
+                        $this->valuty,
+                        $this->odberatel,
+                        $this->konecPrij,
+                        $this->uhrady,
+                        $this->mojeFirma),
+
+                ],
+            ],
+            "SeznamFaktVyd_DPP" => "",
+        ];
+        $this->generateXML($params);
+    }
 }
